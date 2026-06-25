@@ -1,265 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KitaCat</title>
-    <style>
-        :root {
-            --bg-dark: #070913;
-            --bg-card: #0d1127;
-            --primary-orange: #ff9f00;
-            --primary-orange-hover: #e08b00;
-            --text-light: #ffffff;
-            --text-muted: #8b949e;
-            --border-color: #1f2438;
-        }
+<link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KitaCat — Software Studio &amp; KC</title>
+<meta name="description" content="KitaCat builds custom software and fintech systems, and runs KC, an independent community token with its own exchange.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b14;
+    --bg-card:#0e1326;
+    --bg-card-2:#11172c;
+    --signal:#ffb238;
+    --signal-soft:#ffe9c2;
+    --text:#f4f1e9;
+    --muted:#7d869c;
+    --line:#1c2238;
+    --green:#5fd6a0;
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  *{ margin:0; padding:0; box-sizing:border-box; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
+  html{ scroll-behavior:smooth; }
 
-        header {
-            background: var(--bg-card);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
 
-        .logo {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: var(--primary-orange);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            letter-spacing: 1px;
-        }
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.02em; }
 
-        nav a {
-            margin-left: 1.5rem;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+  .mono{ font-family:'JetBrains Mono', monospace; }
 
-        nav a:hover {
-            color: var(--primary-orange);
-        }
+  a{ color:inherit; }
 
-        .hero {
-            padding: 6rem 2rem;
-            text-align: center;
-            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
-            border-bottom: 1px solid var(--border-color);
-        }
+  :focus-visible{
+    outline:2px solid var(--signal);
+    outline-offset:3px;
+    border-radius:4px;
+  }
 
-        .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.5px;
-        }
+  /* ---------- ticker ---------- */
+  .ticker-bar{
+    background:var(--bg-card);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    white-space:nowrap;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--muted);
+    padding:0.5rem 0;
+  }
+  .ticker-track{
+    display:inline-flex;
+    gap:2.5rem;
+    padding-left:2.5rem;
+    animation:scrollTicker 38s linear infinite;
+  }
+  .ticker-track span{ flex-shrink:0; }
+  .ticker-track .up{ color:var(--green); }
+  @keyframes scrollTicker{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{ animation:none; }
+  }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+  /* ---------- header ---------- */
+  header{
+    background:rgba(7,11,20,0.85);
+    backdrop-filter:blur(8px);
+    padding:1.1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    z-index:100;
+  }
 
-        .cta-btn {
-            display: inline-block;
-            background: var(--primary-orange);
-            color: var(--bg-dark);
-            padding: 0.9rem 2.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.05rem;
-            transition: background 0.2s, transform 0.2s;
-        }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    text-decoration:none;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:1.3rem;
+    color:var(--text);
+  }
 
-        .cta-btn:hover {
-            background: var(--primary-orange-hover);
-            transform: translateY(-1px);
-        }
+  .logo svg{ width:30px; height:30px; flex-shrink:0; }
 
-        .container {
-            max-width: 1100px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
+  nav{ display:flex; align-items:center; gap:1.8rem; }
 
-        .services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2.5rem;
-        }
+  nav a{
+    text-decoration:none;
+    color:var(--muted);
+    font-weight:500;
+    font-size:0.95rem;
+    transition:color 0.2s;
+  }
+  nav a:hover{ color:var(--signal); }
 
-        .card {
-            background: var(--bg-card);
-            padding: 2.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            text-align: left;
-            transition: border-color 0.3s;
-        }
+  nav a.nav-cta{
+    color:var(--bg);
+    background:var(--signal);
+    padding:0.5rem 1.1rem;
+    border-radius:7px;
+    font-weight:600;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+  }
+  nav a.nav-cta:hover{ background:var(--signal-soft); color:var(--bg); }
 
-        .card:hover {
-            border-color: var(--primary-orange);
-        }
+  /* ---------- hero ---------- */
+  .hero{
+    padding:5.5rem 2rem 4.5rem;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(ellipse 700px 380px at 50% -10%, rgba(255,178,56,0.13), transparent 70%),
+      var(--bg);
+  }
 
-        .card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-orange);
-            font-size: 1.4rem;
-        }
+  .hero-inner{
+    max-width:780px;
+    margin:0 auto;
+    text-align:center;
+  }
 
-        .card p {
-            color: var(--text-muted);
-        }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.8rem;
+    color:var(--signal);
+    letter-spacing:0.06em;
+    margin-bottom:1.4rem;
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    border:1px solid var(--line);
+    background:var(--bg-card);
+    padding:0.4rem 0.9rem;
+    border-radius:999px;
+  }
+  .eyebrow .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 3px rgba(95,214,160,0.18);
+  }
 
-        .coin-section {
-            background: linear-gradient(135deg, #ff9f00 0%, #ff6b00 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-radius: 16px;
-            margin-top: 5rem;
-            color: var(--bg-dark);
-        }
+  .hero h1{
+    font-size:3rem;
+    font-weight:700;
+    margin-bottom:1.3rem;
+    line-height:1.12;
+  }
+  .hero h1 .accent{ color:var(--signal); }
 
-        .coin-section h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
+  .hero p{
+    font-size:1.12rem;
+    color:var(--muted);
+    max-width:560px;
+    margin:0 auto 2.4rem;
+  }
 
-        .coin-section p {
-            font-size: 1.15rem;
-            max-width: 600px;
-            margin: 0 auto 2rem auto;
-            font-weight: 500;
-            opacity: 0.9;
-        }
+  .hero-actions{
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
 
-        .coin-btn {
-            background: var(--bg-dark);
-            color: var(--primary-orange);
-            border: 2px solid var(--bg-dark);
-        }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    padding:0.85rem 1.7rem;
+    border-radius:9px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:1rem;
+    transition:transform 0.15s, background 0.15s, border-color 0.15s;
+  }
+  .btn:hover{ transform:translateY(-1px); }
 
-        .coin-btn:hover {
-            background: transparent;
-            color: var(--bg-dark);
-        }
+  .btn-primary{ background:var(--signal); color:var(--bg); }
+  .btn-primary:hover{ background:var(--signal-soft); }
 
-        .about-section {
-            margin-top: 6rem;
-            text-align: center;
-            max-width: 750px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0 1rem;
-        }
+  .btn-ghost{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{ border-color:var(--signal); color:var(--signal); }
 
-        .about-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
+  /* ---------- layout helpers ---------- */
+  .container{ max-width:1080px; margin:0 auto; padding:5.5rem 2rem; }
+  .container.tight{ padding-top:4rem; padding-bottom:4rem; }
 
-        .about-section p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
+  .section-head{ max-width:620px; margin-bottom:2.8rem; }
+  .section-head .eyebrow{ margin-bottom:1rem; }
+  .section-head h2{ font-size:2rem; margin-bottom:0.8rem; }
+  .section-head p{ color:var(--muted); font-size:1.05rem; }
 
-        footer {
-            background: var(--bg-card);
-            color: var(--text-muted);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 8rem;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-        }
+  /* ---------- services ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:1.5rem;
+  }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.4rem; }
-            header { flex-direction: column; gap: 1.2rem; text-align: center; }
-            nav a { margin: 0 0.75rem; }
-        }
-    </style>
+  .card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:2rem;
+    transition:border-color 0.25s, transform 0.25s;
+  }
+  .card:hover{ border-color:var(--signal); transform:translateY(-3px); }
+
+  .card .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    color:var(--signal);
+    letter-spacing:0.05em;
+    margin-bottom:0.9rem;
+    display:block;
+  }
+
+  .card h3{ font-size:1.22rem; margin-bottom:0.7rem; }
+  .card p{ color:var(--muted); font-size:0.97rem; }
+
+  /* ---------- KC terminal section ---------- */
+  .kc-section{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:0;
+    overflow:hidden;
+  }
+
+  .kc-titlebar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0.9rem 1.4rem;
+    background:var(--bg-card-2);
+    border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--muted);
+  }
+  .kc-titlebar .dots{ display:flex; gap:6px; }
+  .kc-titlebar .dots span{ width:9px; height:9px; border-radius:50%; background:var(--line); }
+
+  .kc-body{ padding:2.8rem 2.4rem; }
+
+  .kc-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:2.5rem;
+    align-items:start;
+  }
+  @media (max-width:760px){ .kc-grid{ grid-template-columns:1fr; } }
+
+  .kc-body h2{
+    font-size:1.9rem;
+    margin-bottom:1rem;
+  }
+  .kc-body h2 span{ color:var(--signal); }
+
+  .kc-body > .kc-grid > div:first-child p{
+    color:var(--muted);
+    margin-bottom:1.6rem;
+    font-size:1.02rem;
+  }
+
+  .kc-disclosure{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--muted);
+    border-top:1px dashed var(--line);
+    padding-top:1.2rem;
+    line-height:1.7;
+  }
+
+  .kc-stat-panel{
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:1.6rem;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  .kc-stat-row{
+    display:flex;
+    justify-content:space-between;
+    padding:0.65rem 0;
+    border-bottom:1px solid var(--line);
+    font-size:0.88rem;
+  }
+  .kc-stat-row:last-of-type{ border-bottom:none; }
+  .kc-stat-row .label{ color:var(--muted); }
+  .kc-stat-row .value{ color:var(--text); font-weight:500; }
+  .kc-stat-row .value.up{ color:var(--green); }
+
+  .kc-cta{
+    margin-top:1.4rem;
+    width:100%;
+    justify-content:center;
+  }
+
+  /* ---------- about ---------- */
+  .about{
+    max-width:680px;
+  }
+  .about p{ color:var(--muted); font-size:1.05rem; margin-bottom:1rem; }
+
+  .about-marks{
+    display:flex;
+    gap:2.2rem;
+    margin-top:2.2rem;
+    flex-wrap:wrap;
+  }
+  .about-marks div{ font-family:'JetBrains Mono', monospace; }
+  .about-marks .n{ color:var(--signal); font-size:1.5rem; font-weight:600; display:block; }
+  .about-marks .l{ color:var(--muted); font-size:0.82rem; }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:2.6rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1rem;
+    color:var(--muted);
+    font-size:0.88rem;
+  }
+  footer .logo{ font-size:1.05rem; }
+  footer .logo svg{ width:22px; height:22px; }
+  footer nav a{ margin-left:0; }
+
+  @media (max-width:768px){
+    .hero h1{ font-size:2.2rem; }
+    header{ padding:1rem 1.2rem; }
+    nav{ gap:1rem; }
+    nav a:not(.nav-cta){ display:none; }
+    .container{ padding:3.5rem 1.2rem; }
+    .kc-body{ padding:2rem 1.4rem; }
+    footer{ flex-direction:column; text-align:center; }
+  }
+</style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">KitaCat</a>
-        <nav>
-            <a href="#services">Software</a>
-            <a href="#kittycoin">Trade KC</a>
-            <a href="#about">About</a>
-        </nav>
-    </header>
+  <div class="ticker-bar" aria-hidden="true">
+    <div class="ticker-track">
+      <span>KC / USD — community-run, independent token</span>
+      <span class="up">●&nbsp;exchange live at kc-xchange</span>
+      <span>KitaCat — custom software &amp; fintech systems</span>
+      <span>not a security, not financial advice, do your own research</span>
+      <span>KC / USD — community-run, independent token</span>
+      <span class="up">●&nbsp;exchange live at kc-xchange</span>
+      <span>KitaCat — custom software &amp; fintech systems</span>
+      <span>not a security, not financial advice, do your own research</span>
+    </div>
+  </div>
 
-    <section class="hero">
-        <h1>Engineered for the Digital Ecosystem</h1>
-        <p>KitaCat designs high-performance software frameworks and drives next-gen digital asset platforms.</p>
-        <a href="#services" class="cta-btn">Explore Software Solutions</a>
+  <header>
+    <a href="#" class="logo">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 11L9 4L13 9H19L23 4L26 11" stroke="#ffb238" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="5" y="11" width="22" height="15" rx="6" stroke="#ffb238" stroke-width="1.6"/>
+        <circle cx="12" cy="18" r="1.4" fill="#ffb238"/>
+        <circle cx="20" cy="18" r="1.4" fill="#ffb238"/>
+        <path d="M14 22C14.6 22.7 17.4 22.7 18 22" stroke="#ffb238" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      KitaCat
+    </a>
+    <nav>
+      <a href="#services">Software</a>
+      <a href="#about">About</a>
+      <a href="#kc">KC</a>
+      <a href="#kc" class="nav-cta">Open exchange →</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow"><span class="dot"></span>STUDIO + TOKEN, ONE TEAM</span>
+      <h1>We build the systems.<br>We also <span class="accent">run our own token.</span></h1>
+      <p>KitaCat is a small software studio that designs custom backends, APIs, and fintech tooling — and the same team independently operates KC, a community token with its own exchange.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn btn-primary">See what we build</a>
+        <a href="#kc" class="btn btn-ghost">Trade KC →</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="services" class="container">
+      <div class="section-head">
+        <span class="eyebrow mono" style="color:var(--muted); border-color:var(--line);">CORE EXPERTISE</span>
+        <h2>Software, built around how your data actually moves</h2>
+        <p>We work close to the metal where it matters — clean architecture first, polish second.</p>
+      </div>
+      <div class="services-grid">
+        <div class="card">
+          <span class="tag">// ARCHITECTURE</span>
+          <h3>Custom software systems</h3>
+          <p>Scalable backends, robust APIs, and web infrastructure designed around your real data workflows — not a generic template stretched to fit.</p>
+        </div>
+        <div class="card">
+          <span class="tag">// FINTECH</span>
+          <h3>Fintech &amp; transactional engines</h3>
+          <p>Gamified transaction systems, ledger integrations, and private portal infrastructure — the kind of plumbing that has to be right the first time.</p>
+        </div>
+        <div class="card">
+          <span class="tag">// INTERFACE</span>
+          <h3>Interface &amp; product design</h3>
+          <p>Interfaces built to be used daily, not demoed once — clear states, fast feedback, no decoration that doesn't earn its place.</p>
+        </div>
+      </div>
     </section>
 
-    <main class="container">
-        
-        <section id="services">
-            <h2 style="text-align: center; font-size: 2rem; letter-spacing: -0.5px;">Core Expertise</h2>
-            <div class="services">
-                <div class="card">
-                    <h3>Custom Software Architecture</h3>
-                    <p>We program scalable systems, robust APIs, and web infrastructure crafted specifically around complex data workflows.</p>
-                </div>
-                <div class="card">
-                    <h3>Fintech & Web3 Systems</h3>
-                    <p>Expertise in developing gamified transactional engines, digital ledger interactions, and private web portal infrastructure.</p>
-                </div>
+    <section id="kc" class="container tight">
+      <div class="kc-section">
+        <div class="kc-titlebar">
+          <span>kc-xchange.terminal</span>
+          <div class="dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="kc-body">
+          <div class="kc-grid">
+            <div>
+              <h2>Trade <span>KC</span></h2>
+              <p>KC is an independent, community-run token built and maintained by KitaCat. The exchange lets holders view balances, send KC, and check network activity.</p>
+              <a href="https://kittycoins.partybag.com" target="_blank" rel="noopener" class="btn btn-primary">Open KC-XCHANGE →</a>
+              <p class="kc-disclosure">
+                KC is a self-issued community token, not a bank product or a security. Balances aren't insured. Price can move fast in either direction. Only commit what you're fine losing, and verify the exchange URL before connecting a wallet.
+              </p>
             </div>
-        </section>
+            <div class="kc-stat-panel">
+              <div class="kc-stat-row"><span class="label">network</span><span class="value">KC mainnet</span></div>
+              <div class="kc-stat-row"><span class="label">status</span><span class="value up">● live</span></div>
+              <div class="kc-stat-row"><span class="label">exchange</span><span class="value">kc-xchange</span></div>
+              <div class="kc-stat-row"><span class="label">custody</span><span class="value">self-custody</span></div>
+              <a href="https://kittycoins.partybag.com" target="_blank" rel="noopener" class="btn btn-ghost kc-cta">View live terminal</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section id="kittycoin" class="coin-section">
-            <h2>Trade KC Now</h2>
-            <p>
-                Access the official KC-XCHANGE trading terminal. Manage your balances, issue wire transfers, and track global network leaderboards.
-            </p>
-            <a href="https://kittycoins.partybag.com" target="_blank" class="cta-btn coin-btn">Launch KC-XCHANGE 🚀</a>
-        </section>
+    <section id="about" class="container">
+      <div class="section-head">
+        <span class="eyebrow mono" style="color:var(--muted); border-color:var(--line);">ABOUT</span>
+      </div>
+      <div class="about">
+        <p>KitaCat is an independent software house. We build practical backend systems and the occasional high-end interactive environment, and we apply the same engineering discipline to KC, the token we operate ourselves.</p>
+        <p>No agency theater, no bloated process — just working systems, kept running.</p>
+        <div class="about-marks">
+          <div><span class="n">2</span><span class="l">core focus areas</span></div>
+          <div><span class="n">1</span><span class="l">token, self-run</span></div>
+          <div><span class="n">24/7</span><span class="l">uptime target</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        <section id="about" class="about-section">
-            <h2>About KitaCat</h2>
-            <p>KitaCat functions as an independent software house, deploying practical utilities and high-end interactive digital environments. From backend data logic to sleek, neon-dark interface designs, our goal is performance and continuous uptime.</p>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2026 KitaCat. All rights reserved.</p>
-    </footer>
+  <footer>
+    <a href="#" class="logo">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 11L9 4L13 9H19L23 4L26 11" stroke="#7d869c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="5" y="11" width="22" height="15" rx="6" stroke="#7d869c" stroke-width="1.6"/>
+      </svg>
+      KitaCat
+    </a>
+    <p>&copy; 2026 KitaCat. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
