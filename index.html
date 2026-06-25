@@ -1,1 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitaCat | Software Development & KittyCoin</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #ff7675;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 118, 117, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 118, 117, 0.6);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .coin-section {
+            background: #ffeaa7;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-top: 4rem;
+        }
+
+        .coin-section h2 {
+            color: #d63031;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .coin-btn {
+            background: #d63031;
+        }
+
+        .coin-btn:hover {
+            box-shadow: 0 6px 20px rgba(214, 48, 49, 0.4);
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 6rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            header { flex-direction: column; gap: 1rem; }
+            nav a { margin: 0 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">🐾 KitaCat</a>
+        <nav>
+            <a href="#services">Software</a>
+            <a href="#kittycoin">KittyCoin</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>We Build Smart Software.</h1>
+        <p>At KitaCat, we craft custom digital solutions and power the future of decentralized fun with KittyCoin.</p>
+        <a href="#services" class="cta-btn">Explore Our Services</a>
+    </section>
+
+    <main class="container">
+        
+        <section id="services">
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem;">What We Do</h2>
+            <div class="services">
+                <div class="card">
+                    <h3>Custom Software</h3>
+                    <p>Tailor-made applications built to scale. From web platforms to mobile apps, we bring your tech visions to life.</p>
+                </div>
+                <div class="card">
+                    <h3>Web3 & Crypto</h3>
+                    <p>Integration of blockchain technology, smart contracts, and tokenomics tailored for modern digital ecosystems.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="kittycoin" class="coin-section">
+            <h2>Meet KittyCoin ($KITTY)</h2>
+            <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem auto;">
+                Our official native token. Built for the community, powered by KitaCat software ecosystem. Join the party today!
+            </p>
+            <a href="https://kittycoins.partybag.com" target="_blank" class="cta-btn coin-btn">Visit KittyCoin Platform 🚀</a>
+        </section>
+
+        <section id="about" style="margin-top: 5rem; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">About KitaCat</h2>
+            <p>KitaCat is a forward-thinking software development studio. We bridge the gap between traditional robust engineering and next-generation Web3 innovations. Whether you need a database built or want to explore our crypto ecosystem, we've got you covered.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KitaCat. All rights reserved. KittyCoin is hosted at kittycoins.partybag.com</p>
+    </footer>
+
+</body>
+</html>
